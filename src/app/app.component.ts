@@ -34,4 +34,9 @@ export class AppComponent {
   // Public property to expose the heroes array
   // for binding.
   heroes = HEROES;
+
+  // Method to select a hero
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
 }
