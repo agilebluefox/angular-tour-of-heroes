@@ -29,6 +29,8 @@ const HEROES: Hero[] = [
 export class AppComponent {
   // Add a title property
   title = 'Tour of Heroes';
+  // Add a selected hero property
+  selectedHero: Hero;
   // Public property to expose the heroes array
   // for binding.
   heroes = HEROES;
