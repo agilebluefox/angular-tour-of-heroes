@@ -15,4 +15,12 @@ export class HeroService {
     return Promise.resolve(HEROES);
   }
 
+  // Method to simulate a slow server response
+  // The promise resolves after 2s then gets the heroes
+  getHeroesSlowly(): Promise<Hero[]> {
+    return new Promise<Hero[]>(resolve => 
+    setTimeout(resolve, 2000))
+    .then(() => this.getHeroes());
+  }
+
 }
