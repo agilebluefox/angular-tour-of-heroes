@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Hero } from '../../shared/hero';
+import { HeroService } from '../../services/hero.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  // Public property to expose the heroes
+  heroes: Hero[];
 
-  ngOnInit() {
+  constructor(private heroService: HeroService) { }
+
+  // Get the top heroes when the component initializes
+  ngOnInit(): void {
+    this.heroService.getHeroes()
+      .then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
 }
