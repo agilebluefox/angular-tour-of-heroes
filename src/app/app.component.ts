@@ -16,5 +16,8 @@ export class AppComponent {
   // Add a title property
   title = 'Tour of Heroes';
   // Add the hero property
-  hero = 'Windstorm';
+  hero: Hero = {
+    id: 1,
+    name: 'Windstorm'
+  };
 }
