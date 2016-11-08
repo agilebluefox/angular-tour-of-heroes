@@ -23,5 +23,10 @@ export class AppComponent {
   // Method to select a hero
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+
+    // Method to get the heroes from the service
+    getHeroes(): void {
+      this.heroes = this.heroService.getHeroes();
+    }
   }
 }
