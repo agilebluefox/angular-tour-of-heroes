@@ -10,8 +10,9 @@ export class HeroService {
   constructor() { }
 
 // Method to get the list of heroes
-  getHeroes(): Hero[] {
-    return HEROES;
+// Return a Promise
+  getHeroes(): Promise<Hero[]> {
+    return Promise.resolve(HEROES);
   }
 
 }

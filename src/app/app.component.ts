@@ -11,7 +11,7 @@ import { HeroService } from './services/hero.service';
 })
 
 export class AppComponent implements OnInit {
-  constructor (private heroService: HeroService) {}
+  constructor(private heroService: HeroService) { }
 
   // Use the OnInit hook to call the getHeroes Method
   // so the data can be retrieved to add to the page
@@ -30,10 +30,11 @@ export class AppComponent implements OnInit {
   // Method to select a hero
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+  }
 
-    // Method to get the heroes from the service
-    getHeroes(): void {
-      this.heroes = this.heroService.getHeroes();
-    }
+  // Method to get the heroes from the service
+  getHeroes(): void {
+    // When the Promise resolves, set the heroes to the array
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
 }
