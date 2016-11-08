@@ -15,7 +15,7 @@ export class AppComponent {
   selectedHero: Hero;
   // Public property to expose the heroes array
   // for binding.
-  heroes = HEROES;
+  heroes: Hero[];
 
   // Method to select a hero
   onSelect(hero: Hero): void {
