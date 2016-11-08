@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Hero } from './shared/hero';
 import { HeroService } from './services/hero.service';
@@ -10,8 +10,15 @@ import { HeroService } from './services/hero.service';
   providers: [HeroService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor (private heroService: HeroService) {}
+
+  // Use the OnInit hook to call the getHeroes Method
+  // so the data can be retrieved to add to the page
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
   // Add a title property
   title = 'Tour of Heroes';
   // Add a selected hero property
