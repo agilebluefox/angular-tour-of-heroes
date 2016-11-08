@@ -37,7 +37,7 @@ import { DashboardComponent } from './heroes/dashboard/dashboard.component';
         pathMatch: 'full'
       },
       {
-        path: 'hero-details/:id',
+        path: 'details/:id',
         component: HeroDetailsComponent
       }
     ])
