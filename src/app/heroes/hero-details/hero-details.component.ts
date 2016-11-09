@@ -31,8 +31,14 @@ export class HeroDetailsComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let id = +params['id'];
       this.heroService.getHero(id)
-      .then(hero => this.hero = hero);
+        .then(hero => this.hero = hero);
     });
   }
+
+  // Method to return to the previous page
+  goBack(): void {
+    this.location.back();
+  }
+
 
 }
