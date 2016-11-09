@@ -27,7 +27,7 @@ export class HeroesComponent implements OnInit {
   // Use the OnInit hook to call the getHeroes Method
   // so the data can be retrieved to add to the page
   ngOnInit(): void {
-        this.getHeroes();
+    this.getHeroes();
   }
 
   // Method to select a hero
@@ -45,6 +45,16 @@ export class HeroesComponent implements OnInit {
   goToDetails(): void {
     let link = ['/details', this.selectedHero.id];
     this.router.navigate(link);
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.create(name)
+      .then(hero => {
+        this.heroes.push(hero);
+        this.selectedHero = null;
+      });
   }
 
 }

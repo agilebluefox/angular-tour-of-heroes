@@ -57,4 +57,13 @@ export class HeroService {
     .catch(this.handleError);
   }
 
+  // Add a hero to the database
+  create(name: string): Promise<Hero> {
+    return this.http
+    .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
+    .toPromise()
+    .then(res => res.json().data)
+    .catch(this.handleError);
+  }
+
 }
