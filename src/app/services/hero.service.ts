@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
 
 // Get the heroes array and the hero class definition
 import { Hero } from '../shared/hero';
-import { HEROES } from '../shared/mock-heroes';
 
 @Injectable()
 export class HeroService {
 
-  constructor() { }
+  // Provide a URL to the heroes data in the "fake" web api
+  private heroesUrl = 'app/heroes';  // URL to web api
+
+  // Inject the Http Module
+  constructor(private http: Http) { }
 
 // Method to get the list of heroes
 // Return a Promise
   getHeroes(): Promise<Hero[]> {
-    return Promise.resolve(HEROES);
+    return this.http.get(this.heroesUrl)
+    .toPromise()
+    .then(response => response.json().data as Hero[])
+    .catch(this.handleError);
   }
 
   // Method to simulate a slow server response
@@ -27,6 +36,10 @@ export class HeroService {
   getHero(id: number): Promise<Hero> {
     return this.getHeroes()
     .then(heroes => heroes.find(hero => hero.id === id));
+  }
+
+  handleError(error): void {
+    console.log(error);
   }
 
 }
