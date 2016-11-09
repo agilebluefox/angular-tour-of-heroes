@@ -12,6 +12,12 @@ export class HeroService {
   // Provide a URL to the heroes data in the "fake" web api
   private heroesUrl = 'app/heroes';  // URL to web api
 
+  // Method to handle errors if the http request fails
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
+
   // Inject the Http Module
   constructor(private http: Http) { }
 
@@ -36,10 +42,6 @@ export class HeroService {
   getHero(id: number): Promise<Hero> {
     return this.getHeroes()
     .then(heroes => heroes.find(hero => hero.id === id));
-  }
-
-  handleError(error): void {
-    console.log(error);
   }
 
 }
