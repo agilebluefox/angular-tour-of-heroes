@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Hero } from '../../shared/hero';
 import { HeroService } from '../../services/hero.service';
@@ -11,7 +12,11 @@ import { HeroService } from '../../services/hero.service';
 })
 export class HeroesComponent implements OnInit {
 
-  constructor(private heroService: HeroService) { }
+  // Inject the services
+  constructor(
+    private heroService: HeroService,
+    private router: Router
+  ) { }
 
   // Add a selected hero property
   selectedHero: Hero;
@@ -34,6 +39,12 @@ export class HeroesComponent implements OnInit {
   getHeroes(): void {
     // When the Promise resolves, set the heroes to the array
     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  // Method to navigate to the details page when the button is clicked
+  goToDetails(): void {
+    let link = ['/details', this.selectedHero.id];
+    this.router.navigate(link);
   }
 
 }

@@ -5,4 +5,9 @@
   </li>
 </ul>
 
-<app-hero-details [hero]="selectedHero"></app-hero-details>
+<div *ngIf="selectedHero">
+  <h2>
+    {{selectedHero.name | uppercase}} is my hero
+  </h2>
+  <button (click)="goToDetails()">View Details</button>
+</div>
