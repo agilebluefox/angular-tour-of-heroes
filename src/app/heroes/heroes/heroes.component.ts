@@ -47,6 +47,7 @@ export class HeroesComponent implements OnInit {
     this.router.navigate(link);
   }
 
+  // Add the hero to the db and push it on the array
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
@@ -54,6 +55,17 @@ export class HeroesComponent implements OnInit {
       .then(hero => {
         this.heroes.push(hero);
         this.selectedHero = null;
+      });
+  }
+
+  // Delete the hero and show the new list without the hero
+  delete(hero: Hero): void {
+    this.heroService
+      .delete(hero.id)
+      .then(() => {
+        this.heroes = this.heroes.filter(h => h !== hero);
+        // Check if the hero is selected
+        if (this.selectedHero === hero) { this.selectedHero = null; }
       });
   }
 

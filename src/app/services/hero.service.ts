@@ -13,7 +13,7 @@ export class HeroService {
   private heroesUrl = 'app/heroes';  // URL to web api
 
   // Setup http headers
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({ 'Content-Type': 'application/json' });
 
   // Method to handle errors if the http request fails
   private handleError(error: any): Promise<any> {
@@ -51,19 +51,28 @@ export class HeroService {
   update(hero: Hero): Promise<Hero> {
     const url = `${this.heroesUrl}/${hero.id}`;
     return this.http
-    .put(url, JSON.stringify(hero), {headers: this.headers})
-    .toPromise()
-    .then(() => hero)
-    .catch(this.handleError);
+      .put(url, JSON.stringify(hero), { headers: this.headers })
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
   }
 
   // Add a hero to the database
   create(name: string): Promise<Hero> {
     return this.http
-    .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
-    .toPromise()
-    .then(res => res.json().data)
-    .catch(this.handleError);
+      .post(this.heroesUrl, JSON.stringify({ name: name }), { headers: this.headers })
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+
+  // Delete the hero from the db
+  delete(id: number): Promise<void> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
   }
 
 }
