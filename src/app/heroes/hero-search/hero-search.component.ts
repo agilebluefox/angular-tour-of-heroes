@@ -14,6 +14,7 @@ import { Hero } from '../../shared/hero';
 })
 export class HeroSearchComponent implements OnInit {
   heroes: Observable<Hero[]>;
+  // Producer of an observable stream
   private searchTerms = new Subject<string>();
 
   constructor(
@@ -26,15 +27,23 @@ export class HeroSearchComponent implements OnInit {
     this.searchTerms.next(term);
   }
 
+  // Turn the stream of search terms into a stream of Hero arrays
+  // and assign the result to heroes
   ngOnInit(): void {
     this.heroes = this.searchTerms
-      .debounceTime(300)  // wait for 300ms pause in events
-      .distinctUntilChanged() // ignore if the search term hasn't changed
-      .switchMap(term => term // switch to the new observable each time
+      // wait for 300ms pause in events
+      .debounceTime(300)
+      // ignore if the search term hasn't changed
+      .distinctUntilChanged()
+      // cancel and discard previous search observables
+      // switch to the new observable each time 
+      // if the search text is empty return an empty array
+      .switchMap(term => term
         ? this.heroSearchService.search(term)
         : Observable.of<Hero[]>([]))
       .catch(error => {
         console.log(error);
+        // return an empty array to clear the search result on error
         return Observable.of<Hero[]>([]);
       });
   }
